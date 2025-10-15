@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Link</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #002b12;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background-color: rgb(0, 255, 21);
+            border: 2px solid #333;
+            padding: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgb(0, 255, 34);
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-layout {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .image-section {
+            flex: 0 0 200px;
+        }
+        
+        .image-box {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-box svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .upload-btn {
+            background-color: #f0f0f0;
+            border: 2px solid #333;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .form-section {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 160px);
+            padding: 8px;
+            border: 2px solid #333;
+            font-size: 14px;
+        }
+        
+        .info-box {
+            border: 2px solid #333;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #00ff37;
+        }
+        
+        .transaction-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .transaction-control {
+            display: flex;
+            align-items: center;
+            border: 2px solid #333;
+        }
+        
+        .transaction-control input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            padding: 5px;
+        }
+        
+        .transaction-control button {
+            background-color: #f0f0f0;
+            border: none;
+            border-left: 2px solid #333;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .checkbox-group {
+            margin: 10px 0;
+        }
+        
+        .checkbox-group label {
+            width: auto;
+            margin-left: 5px;
+        }
+        
+        input[type="checkbox"] {
+            width: auto;
+        }
+        
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .generate-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .generate-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#">Generate Link</a>
+        <a href="#">Transaction History</a>
+        <a href="#">Policy</a>
+        <a href="#">Logout</a>
+    </div>
+    
+    <div class="container">
+        <div class="form-layout">
+            <div class="image-section">
+                <div class="image-box" id="imageBox">
+                    <svg viewBox="0 0 100 100">
+                        <line x1="0" y1="0" x2="100" y2="100" stroke="#333" stroke-width="2"/>
+                        <line x1="100" y1="0" x2="0" y2="100" stroke="#333" stroke-width="2"/>
+                    </svg>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Upload Picture</button>
+            </div>
+            
+            <div class="form-section">
+                <div class="info-box">
+                    <div class="form-group">
+                        <label>Title Here :</label>
+                        <input type="text" id="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <input type="text" id="description">
+                    </div>
+                    <div class="form-group">
+                        <label>Model :</label>
+                        <input type="text" id="model">
+                    </div>
+                    <div class="form-group">
+                        <label>Condition :</label>
+                        <input type="text" id="condition">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Account Number :</label>
+                    <input type="text" id="accountNumber">
+                </div>
+                
+                <div class="form-group">
+                    <label>Bank :</label>
+                    <select id="bank">
+                        <option value="HSBC">HSBC</option>
+                        <option value="Barclays">Barclays</option>
+                        <option value="Lloyds">Lloyds</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Account Holder :</label>
+                    <input type="text" id="accountHolder">
+                </div>
+                
+                <div class="transaction-group">
+                    <label>Transaction :</label>
+                    <div class="transaction-control">
+                        <input type="number" id="transaction" value="1" min="1" max="3">
+                        <button onclick="changeTransaction(1)">▲</button>
+                    </div>
+                </div>
+                <div class="note">* if the transaction is for 3 person, choose 3 from the drop-down list</div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="sendMobile">
+                    <label for="sendMobile">Send to Mobile Phone</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="sendEmail">
+                    <label for="sendEmail">Send to Email</label>
+                </div>
+                
+                <div class="form-group">
+                    <label>Send to Mobile Phone :</label>
+                    <input type="text" id="mobileNumbers">
+                </div>
+                
+                <div class="form-group">
+                    <label>Send to Email :</label>
+                    <input type="text" id="emails">
+                </div>
+                
+                <button class="generate-btn" onclick="praktikum3a()">Buy</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const imageBox = document.getElementById('imageBox');
+        
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageBox.innerHTML = `<img src="${e.target.result}" alt="Uploaded">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        function changeTransaction(delta) {
+            const input = document.getElementById('transaction');
+            let value = parseInt(input.value) + delta;
+            if (value >= 1 && value <= 3) {
+                input.value = value;
+            }
+        }
+        
+        function praktikum3a() {
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                model: document.getElementById('model').value,
+                condition: document.getElementById('condition').value,
+                accountNumber: document.getElementById('accountNumber').value,
+                bank: document.getElementById('bank').value,
+                accountHolder: document.getElementById('accountHolder').value,
+                transaction: document.getElementById('transaction').value,
+                mobileNumbers: document.getElementById('mobileNumbers').value,
+                emails: document.getElementById('emails').value,
+                totalAmount: ''
+            };
+            
+            localStorage.setItem('paymentData', JSON.stringify(data));
+            
+            window.open('praktikum3b.html', '_blank');
+        }
+    </script>
+</body>
+</html>
